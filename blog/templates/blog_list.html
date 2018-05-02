@@ -1,0 +1,30 @@
+{% extends "main.html" %}
+
+{% block dashablog %}
+	<h1> {{ param }} </h1>
+
+    <table>
+    	<tr>
+    	<td>Title</td>
+    	<td>Time</td>
+	<td>Message</td>
+    	</tr>
+	{% for post in posts %}
+	<tr>
+		<td> {{ post.title }} </td>
+		<td> {{ post.timestamp | date:'d.m.Y' }} </td>
+		<td> {{ post.body }} </td>
+		<td> <a href="/del/{{post.id}}/">X</a></td>
+	<tr>	
+	{% endfor %}	
+	</table>
+
+	<h1> Введите свое сообщение в блог: </h1>
+	<form method="POST" action='/send/'>
+		{% csrf_token %}
+		<input type="text" name="title" size="80"><br>
+		<textarea name="body" cols="80" rows="6"></textarea><br>
+		<input type="submit" value="Отправить">
+	</form>
+{% endblock %}
+
